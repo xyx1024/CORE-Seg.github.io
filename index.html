@@ -1,14 +1,56 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>我的 GitHub Pages</title>
-  <style>
-    body { font-family: Arial; text-align: center; margin-top: 80px; }
-  </style>
+  <meta charset="UTF-8" />
+  <title>Paper Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <h1>你好，这是我的 GitHub.io 页面</h1>
-  <p>网站已成功上线 🎉</p>
+<div class="container">
+
+  <h1 class="title">Paper Title Goes Here</h1>
+
+  <p class="authors">
+    Author A<sup>1</sup>, Author B<sup>2</sup>, Author C<sup>1</sup>
+  </p>
+
+  <p class="affiliations">
+    <sup>1</sup>University A &nbsp;&nbsp;
+    <sup>2</sup>Institute B
+  </p>
+
+  <p class="pub">
+    <strong>Conference Name 2026</strong>
+  </p>
+
+  <div class="links">
+    <a href="pdf/paper.pdf" target="_blank">📄 PDF</a>
+    <a href="#">💻 Code</a>
+    <a href="#">📊 Dataset</a>
+  </div>
+
+  <img class="teaser" src="assets/teaser.png" alt="Teaser">
+
+  <h2>Abstract</h2>
+  <p class="abstract">
+    We propose a novel method for ...
+  </p>
+
+  <h2>Method</h2>
+  <img src="assets/method.png" alt="Method">
+
+  <h2>BibTeX</h2>
+  <pre class="bibtex">
+@inproceedings{yourkey2026,
+  title={Paper Title},
+  author={Author A and Author B},
+  booktitle={Conference Name},
+  year={2026}
+}
+  </pre>
+
+</div>
 </body>
 </html>
