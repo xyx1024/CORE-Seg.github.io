@@ -3,39 +3,48 @@ body {
                Helvetica, Arial, sans-serif;
   background: #ffffff;
   color: #222;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .container {
   max-width: 900px;
-  margin: 40px auto;
+  margin: 50px auto;
   padding: 0 20px;
 }
 
 .title {
   font-size: 2.2em;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .authors, .affiliations, .pub {
   text-align: center;
-  margin: 4px 0;
+  margin: 6px 0;
+}
+
+.authors {
+  font-size: 1.05em;
+}
+
+.pub {
+  margin-top: 10px;
 }
 
 .links {
   text-align: center;
-  margin: 20px 0;
+  margin: 26px 0;
 }
 
 .links a {
   display: inline-block;
-  margin: 0 10px;
-  padding: 6px 14px;
+  margin: 6px 8px;
+  padding: 7px 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
   text-decoration: none;
   color: #333;
+  font-size: 0.95em;
 }
 
 .links a:hover {
@@ -45,13 +54,17 @@ body {
 .teaser {
   display: block;
   max-width: 100%;
-  margin: 30px auto;
+  margin: 32px auto;
 }
 
 h2 {
-  margin-top: 40px;
+  margin-top: 44px;
   border-bottom: 1px solid #eee;
   padding-bottom: 6px;
+}
+
+.abstract {
+  text-align: justify;
 }
 
 .bibtex {
@@ -59,4 +72,5 @@ h2 {
   padding: 14px;
   font-size: 0.9em;
   overflow-x: auto;
+  border-radius: 4px;
 }
