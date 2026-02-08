@@ -35,9 +35,6 @@
     <a href="#" target="_blank">🌐 Project Page</a>
   </div>
 
-  <!-- 论文核心示意图（图1：挑战与框架对比） -->
-  <img class="teaser" src="assets/teaser.png" alt="Three challenges in complex medical lesion segmentation and framework comparison">
-
   <!-- 1. Abstract 摘要模块 -->
   <h2>Abstract</h2>
   <p class="abstract">
@@ -53,7 +50,7 @@
     The construction process includes: (1) <strong>Difficulty-Aware Filtering</strong>: Using U-Net to model segmentation error distribution (power-law function) and Kneedle algorithm to select hard samples with high morphological variability and low contrast; (2) <strong>CoT and VQA Generation</strong>: Constructing structured tuples (image, mask, query, reasoning, answer) via GPT-4o with a two-step prompting strategy, simulating clinician's diagnostic reasoning and stripping coordinate values to avoid shortcut learning; (3) <strong>Automated Quality Assurance</strong>: Using Qwen2.5VL-Max to score samples based on normal anatomy description, lesion characterization and reasoning logic (weighted 0.3:0.3:0.4), regenerating samples with scores below 0.8 to ensure quality.
   </p>
   <!-- 数据集构建图（图2） -->
-  <img class="paper-img" src="assets/dataset.png" alt="ComLesion-14K dataset construction and composition">
+  <img class="paper-img" src="asset/dataset.pdf" alt="ComLesion-14K dataset construction and composition">
 
   <!-- 3. Method 方法模块 -->
   <h2>Method</h2>
@@ -67,7 +64,7 @@
     <strong>Two-Stage Training</strong>: (1) CoT-Based Semantic Alignment (SFT): Applies LoRA to MLLM and fine-tunes the adapter/mask decoder with a composite loss (text cross-entropy + DiceCE) to align linguistic reasoning and visual localization; (2) RL-Based Reasoning Exploration (GRPO): Uses Group Relative Policy Optimization to enhance generalization, with a composite reward function (format reward + bipartite matching reward + dual-granularity mask reward) to guide policy update and refine segmentation boundaries.
   </p>
   <!-- 方法框架图（图3） -->
-  <img class="paper-img" src="assets/method.png" alt="CORE-Seg end-to-end framework with two-stage training">
+  <img class="paper-img" src="asset/framework.pdf" alt="CORE-Seg end-to-end framework with two-stage training">
 
   <!-- 4. Experiment 实验模块 -->
   <h2>Experiment</h2>
@@ -78,7 +75,9 @@
     <strong>Key Results</strong>: (1) CORE-Seg achieves SOTA performance with <strong>37.06% mDice</strong> and <strong>27.79% mIoU</strong> on ID data, outperforming the second-best LISA-3B by 14.89% in mDice, and reduces the failure rate to <strong>18.42%</strong> (less than half of general MLLMs); (2) Superior cross-modality and cross-anatomy performance: Outperforms baselines in 6 of 9 anatomical regions, and achieves robust results on high-noise modalities (Ultrasound/OCT) and mainstream radiology modalities (MRI/CT); (3) Strong OOD generalization: Outperforms SFT-only baselines by ~10% mDice on OOD datasets, with 48.20% mDice on the most challenging CVC-ClinicDB; (4) Ablation studies verify the effectiveness of each module: Semantic-Guided Prompt Adapter is essential for cross-modal alignment, dual-granularity mask reward solves reward sparsity, and <seg> token outperforms whole answer as semantic probe for RL training.
   </p>
   <!-- 实验结果图（图4/图5） -->
-  <img class="paper-img" src="assets/experiment.png" alt="CORE-Seg experiment results: mDice across modalities and qualitative comparison">
+  <img class="paper-img" src="asset/experiment.png" alt="CORE-Seg experiment results: mDice across anatomies and modalities">
+  <img class="paper-img" src="asset/visualize.pdf" alt="CORE-Seg experiment results: qualitative comparison">
+
 
   <!-- BibTeX引用 -->
   <h2>BibTeX</h2>
