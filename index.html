@@ -2,52 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Paper Title</title>
+  <title>CORE-Seg: Reasoning-Driven Segmentation for Complex Lesions via Reinforcement Learning</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- 引入外部CSS文件 -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 <div class="container">
+  <!-- 论文标题 -->
+  <h1 class="title">CORE-Seg: Reasoning-Driven Segmentation for Complex Lesions via Reinforcement Learning</h1>
 
-  <h1 class="title">Paper Title Goes Here</h1>
-
+  <!-- 作者信息 -->
   <p class="authors">
-    Author A<sup>1</sup>, Author B<sup>2</sup>, Author C<sup>1</sup>
+    Yuxin Xie<sup>1</sup>, Yuming Chen<sup>1</sup>, Yishan Yang<sup>1</sup>, Yi Zhou<sup>1</sup>∗, Tao Zhou<sup>2</sup>, Zhen Zhao<sup>3</sup>, Jiacheng Liu<sup>3</sup>, Huazhu Fu<sup>4</sup>
   </p>
 
+  <!-- 单位信息 -->
   <p class="affiliations">
-    <sup>1</sup>University A &nbsp;&nbsp;
-    <sup>2</sup>Institute B
+    <sup>1</sup>School of Computer Science and Engineering, Southeast University, Nanjing, China &nbsp;&nbsp;
+    <sup>2</sup>School of Computer Science and Engineering, Nanjing University of Science and Technology, Nanjing, China &nbsp;&nbsp;
+    <sup>3</sup>Zhongda Hospital, Southeast University, Nanjing, China &nbsp;&nbsp;
+    <sup>4</sup>Institute of High-Performance Computing, A*STAR, Singapore
+    <br>∗Corresponding author: Yi Zhou (yizhou.szcn@gmail.com)
   </p>
 
+  <!-- 发表期刊 -->
   <p class="pub">
-    <strong>Conference Name 2026</strong>
+    <strong>IEEE TRANSACTIONS ON MEDICAL IMAGING, 2026</strong>
   </p>
 
+  <!-- 相关链接 -->
   <div class="links">
     <a href="pdf/paper.pdf" target="_blank">📄 PDF</a>
-    <a href="#">💻 Code</a>
-    <a href="#">📊 Dataset</a>
+    <a href="#" target="_blank">💻 Code</a>
+    <a href="#" target="_blank">📊 Dataset (ComLesion-14K)</a>
+    <a href="#" target="_blank">🌐 Project Page</a>
   </div>
 
-  <img class="teaser" src="assets/teaser.png" alt="Teaser">
+  <!-- 论文核心示意图（图1：挑战与框架对比） -->
+  <img class="teaser" src="assets/teaser.png" alt="Three challenges in complex medical lesion segmentation and framework comparison">
 
+  <!-- 1. Abstract 摘要模块 -->
   <h2>Abstract</h2>
   <p class="abstract">
-    We propose a novel method for ...
+    Medical image segmentation is undergoing a paradigm shift from conventional visual pattern matching to cognitive reasoning-driven analysis. Although Multimodal Large Language Models (MLLMs) have shown promise in integrating linguistic and visual knowledge, significant gaps remain: existing general MLLMs possess broad common sense but lack the specialized visual reasoning required for complex lesions, whereas traditional segmentation models excel at pixel-level segmentation but lack logical interpretability. In this paper, we introduce ComLesion-14K, the first large-scale Chain-of-Thought (CoT) benchmark specifically curated to demand reasoning-driven understanding for complex lesion segmentation. To accomplish this task, we propose CORE-Seg, an end-to-end framework integrating reasoning with segmentation through a latent interaction mechanism. We design a progressive training strategy from SFT to GRPO, equipped with an adaptive dual-granularity reward mechanism to mitigate reward sparsity. Our method achieves state-of-the-art results with a mean Dice of 37.06% (14.89% higher than the second-best baseline), while reducing the failure rate to 18.42%, less than half that of general MLLMs.
   </p>
 
-  <h2>Method</h2>
-  <img src="assets/method.png" alt="Method">
+  <!-- 2. Dataset 数据集模块 -->
+  <h2>Dataset</h2>
+  <p class="abstract">
+    To address the lack of reasoning-oriented complex lesion segmentation data, we construct <strong>ComLesion-14K</strong>, the first large-scale Chain-of-Thought (CoT) driven multimodal benchmark for complex lesion segmentation, curated from 26 public authorized datasets with a three-stage construction pipeline. The dataset contains 13678 complex lesion samples covering 8 imaging modalities (MRI, CT, X-Ray, Ultrasound, OCT, etc.), 9 anatomical regions (Head, Abdomen, Lung, Eye, etc.) and 31 disease categories, focusing on clinical scenarios where traditional segmentation models fail.
+  </p>
+  <p class="abstract">
+    The construction process includes: (1) <strong>Difficulty-Aware Filtering</strong>: Using U-Net to model segmentation error distribution (power-law function) and Kneedle algorithm to select hard samples with high morphological variability and low contrast; (2) <strong>CoT and VQA Generation</strong>: Constructing structured tuples (image, mask, query, reasoning, answer) via GPT-4o with a two-step prompting strategy, simulating clinician's diagnostic reasoning and stripping coordinate values to avoid shortcut learning; (3) <strong>Automated Quality Assurance</strong>: Using Qwen2.5VL-Max to score samples based on normal anatomy description, lesion characterization and reasoning logic (weighted 0.3:0.3:0.4), regenerating samples with scores below 0.8 to ensure quality.
+  </p>
+  <!-- 数据集构建图（图2） -->
+  <img class="paper-img" src="assets/dataset.png" alt="ComLesion-14K dataset construction and composition">
 
+  <!-- 3. Method 方法模块 -->
+  <h2>Method</h2>
+  <p class="abstract">
+    CORE-Seg is an end-to-end complex-lesion-centric reasoning segmentation framework that unifies the coherence of end-to-end models with the explicit reasoning of reinforcement learning, eliminating box-based error propagation and reward sparsity in traditional methods. The framework consists of <strong>three core components</strong> and a <strong>two-stage progressive training pipeline</strong>, with a custom adaptive dual-granularity reward mechanism for reinforcement learning optimization.
+  </p>
+  <p class="abstract">
+    <strong>Core Components</strong>: (1) Multimodal Reasoning Module: Based on Qwen2.5-VL-3B, generates structured reasoning (/) and answer () with a special <seg> token as the semantic anchor for segmentation; (2) Semantic-Guided Prompt Adapter: Projects the <seg> token's hidden state from MLLM's textual space to SAM's visual feature space via ResMLP and cross-attention, serving as a global semantic descriptor for multi-lesion segmentation; (3) Segmentation Module: Based on MedSAM 2, fuses image embeddings and semantic prompts to generate pixel-level segmentation masks.
+  </p>
+  <p class="abstract">
+    <strong>Two-Stage Training</strong>: (1) CoT-Based Semantic Alignment (SFT): Applies LoRA to MLLM and fine-tunes the adapter/mask decoder with a composite loss (text cross-entropy + DiceCE) to align linguistic reasoning and visual localization; (2) RL-Based Reasoning Exploration (GRPO): Uses Group Relative Policy Optimization to enhance generalization, with a composite reward function (format reward + bipartite matching reward + dual-granularity mask reward) to guide policy update and refine segmentation boundaries.
+  </p>
+  <!-- 方法框架图（图3） -->
+  <img class="paper-img" src="assets/method.png" alt="CORE-Seg end-to-end framework with two-stage training">
+
+  <!-- 4. Experiment 实验模块 -->
+  <h2>Experiment</h2>
+  <p class="abstract">
+    Extensive experiments are conducted on the ComLesion-14K dataset, with evaluations on <strong>in-distribution (ID) complex lesion segmentation</strong> and <strong>out-of-distribution (OOD) generalization</strong> (TNSCUI2020, ISPY, CVC-ClinicDB). We compare CORE-Seg with three categories of SOTA models: General MLLMs (Qwen2.5-VL-72B, InternVL3-8B), Medical-Specific MLLMs (HuatuoGPT-7B, MedGemma-4B) and Grounding-Specific MLLMs (SegZero-7B, LISA-3B), with evaluation metrics including mean Dice (mDice), mean IoU (mIoU) and Failure Rate (Dice=0 or invalid format).
+  </p>
+  <p class="abstract">
+    <strong>Key Results</strong>: (1) CORE-Seg achieves SOTA performance with <strong>37.06% mDice</strong> and <strong>27.79% mIoU</strong> on ID data, outperforming the second-best LISA-3B by 14.89% in mDice, and reduces the failure rate to <strong>18.42%</strong> (less than half of general MLLMs); (2) Superior cross-modality and cross-anatomy performance: Outperforms baselines in 6 of 9 anatomical regions, and achieves robust results on high-noise modalities (Ultrasound/OCT) and mainstream radiology modalities (MRI/CT); (3) Strong OOD generalization: Outperforms SFT-only baselines by ~10% mDice on OOD datasets, with 48.20% mDice on the most challenging CVC-ClinicDB; (4) Ablation studies verify the effectiveness of each module: Semantic-Guided Prompt Adapter is essential for cross-modal alignment, dual-granularity mask reward solves reward sparsity, and <seg> token outperforms whole answer as semantic probe for RL training.
+  </p>
+  <!-- 实验结果图（图4/图5） -->
+  <img class="paper-img" src="assets/experiment.png" alt="CORE-Seg experiment results: mDice across modalities and qualitative comparison">
+
+  <!-- BibTeX引用 -->
   <h2>BibTeX</h2>
   <pre class="bibtex">
-@inproceedings{yourkey2026,
-  title={Paper Title},
-  author={Author A and Author B},
-  booktitle={Conference Name},
-  year={2026}
+@article{xie2026core,
+  title={CORE-Seg: Reasoning-Driven Segmentation for Complex Lesions via Reinforcement Learning},
+  author={Xie, Yuxin and Chen, Yuming and Yang, Yishan and Zhou, Yi and Zhou, Tao and Zhao, Zhen and Liu, Jiacheng and Fu, Huazhu},
+  journal={IEEE Transactions on Medical Imaging},
+  year={2026},
+  publisher={IEEE}
 }
   </pre>
 
