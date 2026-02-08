@@ -74,3 +74,10 @@ h2 {
   overflow-x: auto;
   border-radius: 4px;
 }
+
+/* 新增图片通用样式，适配所有论文图 */
+.paper-img {
+  display: block;
+  max-width: 100%;
+  margin: 20px auto;
+}
